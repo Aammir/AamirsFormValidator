@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <title>jQuery Form validation</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>jQuery Form Validation</h3>
+            </div>
+            <div class="col-md-12">
+
+                <form id="exampleForm" action="">
+
+
+                    <div class="form-group">
+                        <label for="full_name">Full Name</label>
+                        <input type="text" name="full_name" class="form-control required full_name" id="full_name"
+                            placeholder="Enter Full Name" data-name="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="exampleFormBtn">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script>
+        function AamirsFormValidator(formBtn) {
+            let the_btn = $(formBtn);
+            let the_form = the_btn.closest('form');
+            let required_fields = the_form.find('.required');
+            // let required_field_val = required_fields.val();
+
+            the_btn.on('click', function (e) {
+                e.preventDefault();
+                required_fields.each(function () {
+                    if ($(this).val() == "") {
+                        let its_name = $(this).data('name');
+                        if (!$(this).next('.error').length) {
+                            $(this).after('<div class="text-danger error">' + its_name + ' is required</div>');
+                        }
+                    } else {
+                        $('.error').remove();
+                    }
+                });
+            });
+
+
+            required_fields.each(function () {
+                $(this).on('keypress', function () {
+                    if ($(this).val() !== "") {
+                        $('.error').remove();
+                    }
+                });
+            });
+
+
+
+        }
+        (function ($) {
+            $(document).ready(function () {
+                console.log('noConf added!');
+                AamirsFormValidator('#exampleFormBtn');
+            });
+        })(jQuery);
+    </script>
+</body>
+
+</html>
